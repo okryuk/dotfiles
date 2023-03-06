@@ -58,9 +58,6 @@ require('packer').startup(function(use)
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
 
-  -- -- Commits review plugin
-  -- use 'sindrets/diffview.nvim'
-
   -- -- Add tabulation for readability
   -- use 'godlygeek/tabular', {'autoload':{'commands':'Tabularize'}}
 
@@ -86,6 +83,15 @@ require('packer').startup(function(use)
     -- :help nvim-tree-commands
     -- :help nvim-tree-setup
   }
+    
+  -- Git Commits review plugin
+  use 'sindrets/diffview.nvim'
+  
+  -- Advanced Git commits and branches viewer
+  -- use 'gregsexton/gitv'
+    
+  -- Fast and beautiful git branch viewer
+  use 'rbong/vim-flog'
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
