@@ -273,15 +273,15 @@ setup_go() {
     cat >> $zdot/.zshrc << EOL
 
 export GOROOT=/usr/local/go-1.20
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export GOPATH=\$HOME/go
+export PATH=\$GOPATH/bin:\$GOROOT/bin:\$PATH
 EOL
   else
     cat >> $zdot/.bashrc << EOL
 
 export GOROOT=/usr/local/go-1.20
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export GOPATH=\$HOME/go
+export PATH=\$GOPATH/bin:\$GOROOT/bin:\$PATH
 EOL
   fi
 }
@@ -300,12 +300,12 @@ setup_rust() {
   if [ -f "$zdot/.zshrc" ] || [ -h "$zdot/.zshrc" ]; then
     cat >> $zdot/.zshrc << EOL
     
-export PATH=$HOME/.cargo/bin:$HOME/.cargo/env
+export PATH=\$HOME/.cargo/bin:\$HOME/.cargo/env
 EOL
   else
     cat >> $zdot/.bashrc << EOL
     
-export PATH=$HOME/.cargo/bin:$HOME/.cargo/env
+export PATH=\$HOME/.cargo/bin:\$HOME/.cargo/env
 EOL
   fi
   source $HOME/.zshrc
