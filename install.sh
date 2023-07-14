@@ -289,11 +289,27 @@ EOL
 setup_node() {
   curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - &&\
   sudo apt-get install -y nodejs
-  source ~/.zshrc
 }
 
 setup_jest() {
  npm install --save-dev jest
+}
+
+setup_rust() {
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  if [ -f "$zdot/.zshrc" ] || [ -h "$zdot/.zshrc" ]; then
+    cat >> $zdot/.zshrc << EOL
+    
+export PATH=$HOME/.cargo/bin:$HOME/.cargo/env
+EOL
+  else
+    cat >> $zdot/.bashrc << EOL
+    
+export PATH=$HOME/.cargo/bin:$HOME/.cargo/env
+EOL
+  fi
+  source $HOME/.zshrc
+
 }
 
 linux_setup() {
@@ -321,6 +337,8 @@ linux_setup() {
            setup_go ;;
 	  node)
            setup_node ;;
+	  rust)
+           setup_rust ;;
           *) sudo apt install $pkg ;;
         esac
       fi
