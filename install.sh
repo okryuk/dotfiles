@@ -286,6 +286,16 @@ EOL
   fi
 }
 
+setup_node() {
+  curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - &&\
+  sudo apt-get install -y nodejs
+  source ~/.zshrc
+}
+
+setup_jest() {
+ npm install --save-dev jest
+}
+
 linux_setup() {
     # Update apt repo
     # sudo apt update
@@ -309,6 +319,8 @@ linux_setup() {
            wget -O $zdot/.tmux.conf --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.tmux.conf ;;
 	  go) 
            setup_go ;;
+	  node)
+           setup_node ;;
           *) sudo apt install $pkg ;;
         esac
       fi
@@ -330,6 +342,7 @@ main() {
 	--all) pkgs='vim nvim tmux exa zsh'; RUNZSH=no;  ;;
         --go) pkgs='go' ;;
 	--nvim) pkgs='vim nvim' ;;
+        --node) pkgs='node' ;;
 	--vim) pkgs='vim' ;;
         --exa) pkgs='exa' ;;
         --zsh) pkgs='zsh' ;;
