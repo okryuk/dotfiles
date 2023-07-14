@@ -263,6 +263,29 @@ setup_nvim() {
   wget -O $zdot/.config/nvim/init.lua --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.config/Nvim/init.lua
 }
 
+setup_go() {
+  wget https://go.dev/dl/go1.20.6.linux-amd64.tar.gz
+  tar -xvf go1.20.6.linux-amd64.tar.gz
+  mv go go-1.20
+  sudo mv go-1.20 /usr/local
+  
+  if [ -f "$zdot/.zshrc" ] || [ -h "$zdot/.zshrc" ]; then
+    cat >> $zdot/.zshrc << EOL
+
+export GOROOT=/usr/local/go-1.20
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+EOL
+  else
+    cat >> $zdot/.bashrc << EOL
+
+export GOROOT=/usr/local/go-1.20
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+EOL
+  fi
+}
+
 linux_setup() {
     # Update apt repo
     # sudo apt update
@@ -284,6 +307,8 @@ linux_setup() {
           tmux) 
            command_exists tmux || sudo apt-get install tmux -y ;
            wget -O $zdot/.tmux.conf --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.tmux.conf ;;
+	  go) 
+           setup_go ;;
           *) sudo apt install $pkg ;;
         esac
       fi
@@ -303,6 +328,7 @@ main() {
      # Read and match the second (1) argument
      case $1 in
 	--all) pkgs='vim nvim tmux exa zsh'; RUNZSH=no;  ;;
+        --go) pkgs='go' ;;
 	--nvim) pkgs='vim nvim' ;;
 	--vim) pkgs='vim' ;;
         --exa) pkgs='exa' ;;
