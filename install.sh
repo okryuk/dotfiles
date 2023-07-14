@@ -1,13 +1,13 @@
 #!/bin/bash
 # This script should be run via curl:
-#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/okryuk/main/install.sh)" "" --all
+#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/okryuk/dotfiles/main/install.sh)" "" --all
 # or via wget:
-#   sh -c "$(wget -qO- https://raw.githubusercontent.com/okryuk/main/install.sh)"
+#   sh -c "$(wget -qO- https://raw.githubusercontent.com/okryuk/dotfiles/main/install.sh)"
 # or via fetch:
-#   sh -c "$(fetch -o - https://raw.githubusercontent.com/okryuk/main/install.sh)"
+#   sh -c "$(fetch -o - https://raw.githubusercontent.com/okryuk/dotfiles/main/install.sh)"
 #
 # You can also download it first and then run locally with different variables.
-#   wget https://raw.githubusercontent.com/okryuk/main/install.sh
+#   wget https://raw.githubusercontent.com/okryuk/dotfiles/main/install.sh
 #   chmod +x install.sh
 #   ./install.sh --all
 #
