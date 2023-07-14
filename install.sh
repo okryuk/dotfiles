@@ -362,6 +362,7 @@ main() {
 	--nvim) pkgs='vim nvim' ;;
         --node) pkgs='node' ;;
 	--vim) pkgs='vim' ;;
+ 	--rust) pkgs='rust' ;;
         --exa) pkgs='exa' ;;
         --zsh) pkgs='zsh' ;;
         --tmux) pkgs='tmux' ;;
