@@ -300,12 +300,12 @@ setup_rust() {
   if [ -f "$zdot/.zshrc" ] || [ -h "$zdot/.zshrc" ]; then
     cat >> $zdot/.zshrc << EOL
     
-export PATH=\$HOME/.cargo/bin:\$HOME/.cargo/env
+export PATH=\$HOME/.cargo/bin:\$HOME/.cargo/env:\$PATH
 EOL
   else
     cat >> $zdot/.bashrc << EOL
     
-export PATH=\$HOME/.cargo/bin:\$HOME/.cargo/env
+export PATH=\$HOME/.cargo/bin:\$HOME/.cargo/env:\$PATH
 EOL
   fi
   source $HOME/.zshrc
