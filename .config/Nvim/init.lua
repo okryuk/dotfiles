@@ -43,7 +43,7 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
 
-  -- Visulise and keep open documented functions signature
+  -- Visualise and keep open documented functions signature
   use 'ray-x/lsp_signature.nvim'
 
   -- Git related plugins
@@ -66,6 +66,12 @@ require('packer').startup(function(use)
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+
+  -- File browser in telescope
+  use {
+      "nvim-telescope/telescope-file-browser.nvim",
+      requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  }
 
   -- -- Great extensions to telescope:
   -- use 'rmagatti/auto-session'
@@ -92,6 +98,14 @@ require('packer').startup(function(use)
     
   -- Fast and beautiful git branch viewer
   use 'rbong/vim-flog'
+
+  -- Inc-rename renames all occurrences on the name. Use :IncRename new_name
+  use {
+      'smjonas/inc-rename',
+      config = function()
+        require("inc_rename").setup()
+      end
+    }
   
   -- Tmux support and keybindings
   use { 'alexghergh/nvim-tmux-navigation', config = function()
@@ -111,6 +125,12 @@ require('packer').startup(function(use)
 
     end
   }
+
+  -- Floating statusline with the file name opened
+  use 'b0o/incline.nvim'
+
+  -- Add nightfox theme. Set it with "colorscheme nightfox OR with vim.cmd("colorscheme nightfox")
+  use 'EdenEast/nightfox.nvim'
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -297,8 +317,13 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
+  -- Setup nvim-ts-autotag
+  autotag = {
+    enable = true,
+  },
+  
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'css', 'gitignore', 'go', 'graphql', 'lua', 'http', 'python', 'rust', 'sql', 'typescript', 'vimdoc', 'vim' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
@@ -357,11 +382,77 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
+require('incline').setup {
+  debounce_threshold = {
+    falling = 50,
+    rising = 10
+  },
+  hide = {
+    cursorline = false,
+    focused_win = false,
+    only_win = false
+  },
+  highlight = {
+    groups = {
+      InclineNormal = {
+        default = true,
+        group = "NormalFloat"
+      },
+      InclineNormalNC = {
+        default = true,
+        group = "NormalFloat"
+      }
+    }
+  },
+  ignore = {
+    buftypes = "special",
+    filetypes = {},
+    floating_wins = true,
+    unlisted_buffers = true,
+    wintypes = "special"
+  },
+  render = "basic",
+  window = {
+    margin = {
+      horizontal = 1,
+      vertical = 1
+    },
+    options = {
+      signcolumn = "no",
+      wrap = false
+    },
+    padding = 1,
+    padding_char = " ",
+    placement = {
+      horizontal = "right",
+      vertical = "top"
+    },
+    width = "fit",
+    winhighlight = {
+      active = {
+        EndOfBuffer = "None",
+        Normal = "InclineNormal",
+        Search = "None"
+      },
+      inactive = {
+        EndOfBuffer = "None",
+        Normal = "InclineNormalNC",
+        Search = "None"
+      }
+    },
+    zindex = 50
+  }
+}
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+
+
+-- Inc-rename keymaps
+vim.keymap.set('n', '<leader>rn', ':IncRename')
 
 -- Set local tab width to 4 while working on go files.
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
