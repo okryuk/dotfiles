@@ -280,7 +280,7 @@ require('gitsigns').setup {
 require('nvim-tree').setup()
 
 -- New tab
-keymap.set('n', 'te', ':tabedit', opts)
+keymap.set('n', '<leader>te', ':tabedit', opts)
 keymap.set('n', '<tab>', ':tabnext<CR>', opts)
 keymap.set('n', '<s-tab>', ':tabprev<CR>', opts)
 
