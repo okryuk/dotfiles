@@ -101,10 +101,8 @@ require('packer').startup(function(use)
 
   -- Inc-rename renames all occurrences on the name. Use :IncRename new_name
   use {
-      'smjonas/inc-rename',
-      config = function()
-        require("inc_rename").setup()
-      end
+      'smjonas/inc-rename.nvim',
+      requires = { 'inc_rename' }
     }
   
   -- Tmux support and keybindings
@@ -281,6 +279,15 @@ require('gitsigns').setup {
 
 require('nvim-tree').setup()
 
+-- New tab
+keymap.set('n', 'te', ':tabedit', opts)
+keymap.set('n', ':tabnext<CR>', opts)
+keymap.set('n', ':tabprev<CR>', opts)
+
+-- Split window
+keymap.set('n', 'ss', ':split<CR>', opts) -- horizontal split
+keymap.set('n', 'sv', ':vsplit<CR>', opts) -- vertical split
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
@@ -313,6 +320,9 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+
+-- Configure vim-tree
+vim.keymap.set('n', '<leader>tro',  ':NvimTreeToggle<CR>')
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
