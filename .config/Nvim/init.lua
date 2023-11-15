@@ -34,7 +34,7 @@ require('packer').startup(function(use)
   use { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     run = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
+      pcall(require('nvim-treesitter.instal:l').update { with_sync = true })
     end,
   }
 
@@ -102,7 +102,7 @@ require('packer').startup(function(use)
   -- Inc-rename renames all occurrences on the name. Use :IncRename new_name
   use {
       'smjonas/inc-rename.nvim',
-      requires = { 'inc_rename' }
+      requires = { 'inc-rename' }
     }
   
   -- Tmux support and keybindings
@@ -193,7 +193,7 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme onedark]]
+vim.cmd [[colorscheme nightfox]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -322,7 +322,7 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 -- Configure vim-tree
-vim.keymap.set('n', '<leader>tro',  ':NvimTreeToggle<CR>')
+vim.keymap.set('n', '<leader>tr', ':NvimTreeToggle<CR>')
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -462,7 +462,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 
 -- Inc-rename keymaps
-vim.keymap.set('n', '<leader>rn', ':IncRename')
+vim.keymap.set('n', '<leader>rn', function()
+  return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
 
 -- Set local tab width to 4 while working on go files.
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
