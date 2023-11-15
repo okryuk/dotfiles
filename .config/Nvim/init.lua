@@ -281,8 +281,8 @@ require('nvim-tree').setup()
 
 -- New tab
 keymap.set('n', 'te', ':tabedit', opts)
-keymap.set('n', ':tabnext<CR>', opts)
-keymap.set('n', ':tabprev<CR>', opts)
+keymap.set('n', '<tab>', ':tabnext<CR>', opts)
+keymap.set('n', '<s-tab>', ':tabprev<CR>', opts)
 
 -- Split window
 keymap.set('n', 'ss', ':split<CR>', opts) -- horizontal split
