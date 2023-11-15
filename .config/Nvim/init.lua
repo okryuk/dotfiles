@@ -280,13 +280,13 @@ require('gitsigns').setup {
 require('nvim-tree').setup()
 
 -- New tab
-keymap.set('n', '<leader>te', ':tabedit', opts)
-keymap.set('n', '<tab>', ':tabnext<CR>', opts)
-keymap.set('n', '<s-tab>', ':tabprev<CR>', opts)
+vim.keymap.set('n', '<leader>te', ':tabedit', opts)
+vim.keymap.set('n', '<tab>', ':tabnext<CR>', opts)
+vim.keymap.set('n', '<s-tab>', ':tabprev<CR>', opts)
 
 -- Split window
-keymap.set('n', 'ss', ':split<CR>', opts) -- horizontal split
-keymap.set('n', 'sv', ':vsplit<CR>', opts) -- vertical split
+vim.keymap.set('n', 'ss', ':split<CR>', opts) -- horizontal split
+vim.keymap.set('n', 'sv', ':vsplit<CR>', opts) -- vertical split
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
