@@ -104,6 +104,12 @@ require('packer').startup(function(use)
       'smjonas/inc-rename.nvim',
       requires = { 'inc-rename' }
     }
+
+  -- Folke Noice for better notifications utility
+  use {
+      'folke/noice.nvim',
+      requires = { 'MunifTanjim/nui.nvim', 'rcarriga/nvim-notify' }
+  }
   
   -- Tmux support and keybindings
   use { 'alexghergh/nvim-tmux-navigation', config = function()
@@ -250,10 +256,7 @@ require('Comment').setup()
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
-require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
-}
+require('indent_blankline').setup ()
 
 -- Enable lsp_signature
 require('lsp_signature').setup {
@@ -390,6 +393,10 @@ require('nvim-treesitter.configs').setup {
       },
     },
   },
+}
+
+require('notify').setup {
+  timeout = 5000,
 }
 
 require('incline').setup {
