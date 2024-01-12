@@ -336,7 +336,7 @@ require('nvim-treesitter.configs').setup {
   },
   
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'css', 'gitignore', 'go', 'graphql', 'lua', 'http', 'python', 'rust', 'sql', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'css', 'gitignore', 'go', 'graphql', 'lua', 'http', 'python', 'rust', 'sql', 'tsx', 'typescript', 'vimdoc', 'vim' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
@@ -546,7 +546,7 @@ local servers = {
   gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  tsserver = {},
 
   lua_ls = {
     Lua = {
