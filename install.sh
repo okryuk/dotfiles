@@ -413,7 +413,7 @@ main() {
   *) ;;
   esac
 
-  exec zsh -l
+  echo "Now restart zsh with 'exec zsh -l'"
 }
 
 main "$@"
