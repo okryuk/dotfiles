@@ -266,24 +266,21 @@ setup_nvim() {
 }
 
 setup_go() {
-  wget https://go.dev/dl/go1.20.6.linux-amd64.tar.gz
-  tar -xvf go1.20.6.linux-amd64.tar.gz
-  mv go go-1.20
-  sudo mv go-1.20 /usr/local
+  sudo rm -rf /usr/local/go
+  wget https://go.dev/dl/go1.23.0.linux-amd64.tar.gz
+  tar -xvf go1.23.0.linux-amd64.tar.gz
+  rm go1.23.0.linux-amd64.tar.gz
+  sudo mv go /usr/local
   
   if [ -f "$zdot/.zshrc" ] || [ -h "$zdot/.zshrc" ]; then
     cat >> $zdot/.zshrc << EOL
 
-export GOROOT=/usr/local/go-1.20
-export GOPATH=\$HOME/go
-export PATH=\$GOPATH/bin:\$GOROOT/bin:\$PATH
+export PATH=\$PATH:/usr/local/go/bin
 EOL
   else
     cat >> $zdot/.bashrc << EOL
 
-export GOROOT=/usr/local/go-1.20
-export GOPATH=\$HOME/go
-export PATH=\$GOPATH/bin:\$GOROOT/bin:\$PATH
+export PATH=\$PATH:/usr/local/go/bin
 EOL
   fi
 }
