@@ -12,7 +12,7 @@
 #   ./install.sh --all
 #
 #
-# Some functions of this code related to oh-my-zsh setup were copied from 
+# Some functions of this code related to oh-my-zsh setup were copied from
 # an amazing work of Mark Cornella and can be found at https://github.com/ohmyzsh/ohmyzsh
 
 # $USER is defined by login(1) which is not always executed (e.g. containers)
@@ -49,7 +49,7 @@ RUNZSH=${RUNZSH:-yes}
 KEEP_ZSHRC=${KEEP_ZSHRC:-no}
 
 # Check if command exists.
-# Explanation: 
+# Explanation:
 # "$@": all arguments of a script or function call.
 # >: means redirect stdout (same as 1>).
 # >/dev/null: means redirect stdout to /dev/null, meaning just trash the output.
@@ -57,7 +57,6 @@ KEEP_ZSHRC=${KEEP_ZSHRC:-no}
 command_exists() {
   command -v "$@" >/dev/null 2>&1
 }
-
 
 user_can_sudo() {
   # Check if sudo is installed
@@ -115,17 +114,17 @@ setup_ohmyzsh() {
   fi
 
   # Manual clone with git config options to support git < v1.7.2
-  git init --quiet "$ZSH" && cd "$ZSH" \
-  && git config core.eol lf \
-  && git config core.autocrlf false \
-  && git config fsck.zeroPaddedFilemode ignore \
-  && git config fetch.fsck.zeroPaddedFilemode ignore \
-  && git config receive.fsck.zeroPaddedFilemode ignore \
-  && git config oh-my-zsh.remote origin \
-  && git config oh-my-zsh.branch "$BRANCH" \
-  && git remote add origin "$REMOTE" \
-  && git fetch --depth=1 origin \
-  && git checkout -b "$BRANCH" "origin/$BRANCH" || {
+  git init --quiet "$ZSH" && cd "$ZSH" &&
+    git config core.eol lf &&
+    git config core.autocrlf false &&
+    git config fsck.zeroPaddedFilemode ignore &&
+    git config fetch.fsck.zeroPaddedFilemode ignore &&
+    git config receive.fsck.zeroPaddedFilemode ignore &&
+    git config oh-my-zsh.remote origin &&
+    git config oh-my-zsh.branch "$BRANCH" &&
+    git remote add origin "$REMOTE" &&
+    git fetch --depth=1 origin &&
+    git checkout -b "$BRANCH" "origin/$BRANCH" || {
     [ ! -d "$ZSH" ] || {
       cd -
       rm -rf "$ZSH" 2>/dev/null
@@ -173,9 +172,9 @@ setup_zshrc() {
   fi
 
   echo "Using the Oh My Zsh setup file and adding it to $zdot/.zshrc."
-  
+
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH/custom/themes/powerlevel10k
-  wget -O $zdot/.p10k.zsh --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.p10k.zsh  
+  wget -O $zdot/.p10k.zsh --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.p10k.zsh
   wget -O $zdot/.zshrc --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.zshrc
   wget -O $ZSH/custom/aliases.zsh --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.oh-my-zsh/custom/aliases.zsh
 
@@ -191,8 +190,11 @@ setup_zsh_shell() {
 
   # Check if we're running on Termux
   case "$PREFIX" in
-    *com.termux*) termux=true; zsh=zsh ;;
-    *) termux=false ;;
+  *com.termux*)
+    termux=true
+    zsh=zsh
+    ;;
+  *) termux=false ;;
   esac
 
   if [ "$termux" != true ]; then
@@ -220,9 +222,9 @@ setup_zsh_shell() {
 
   # We're going to change the default shell, so back up the current one
   if [ -n "$SHELL" ]; then
-    echo "$SHELL" > "$zdot/.shell.pre-oh-my-zsh"
+    echo "$SHELL" >"$zdot/.shell.pre-oh-my-zsh"
   else
-    grep "^$USER:" /etc/passwd | awk -F: '{print $7}' > "$zdot/.shell.pre-oh-my-zsh"
+    grep "^$USER:" /etc/passwd | awk -F: '{print $7}' >"$zdot/.shell.pre-oh-my-zsh"
   fi
 
   echo "Changing your shell to $zsh..."
@@ -237,9 +239,9 @@ setup_zsh_shell() {
   # be prompted for the password either way, so this shouldn't cause any issues.
   #
   if user_can_sudo; then
-    sudo -k chsh -s "$zsh" "$USER"  # -k forces the password prompt
+    sudo -k chsh -s "$zsh" "$USER" # -k forces the password prompt
   else
-    chsh -s "$zsh" "$USER"          # run chsh normally
+    chsh -s "$zsh" "$USER" # run chsh normally
   fi
 
   # Check if the shell change was successful
@@ -261,7 +263,7 @@ setup_nvim() {
   sudo mv nvim /usr/bin
   git clone https://github.com/okryuk/dotfiles.git $zdot
   mkdir -p $zdot/.config/nvim
-  cp -a $zdot/dotfiles/.config/Nvim/. $zdot/.config/nvim
+  cp -a $zdot/dotfiles/.config/nvim/. $zdot/.config/nvim
   # wget -O $zdot/.config/nvim/init.lua --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.config/Nvim/init.lua
 }
 
@@ -271,14 +273,14 @@ setup_go() {
   tar -xvf go1.23.0.linux-amd64.tar.gz
   rm go1.23.0.linux-amd64.tar.gz
   sudo mv go /usr/local
-  
+
   if [ -f "$zdot/.zshrc" ] || [ -h "$zdot/.zshrc" ]; then
-    cat >> $zdot/.zshrc << EOL
+    cat >>$zdot/.zshrc <<EOL
 
 export PATH=\$PATH:/usr/local/go/bin
 EOL
   else
-    cat >> $zdot/.bashrc << EOL
+    cat >>$zdot/.bashrc <<EOL
 
 export PATH=\$PATH:/usr/local/go/bin
 EOL
@@ -286,23 +288,23 @@ EOL
 }
 
 setup_node() {
-  curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - &&\
-  sudo apt-get install -y nodejs
+  curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - &&
+    sudo apt-get install -y nodejs
 }
 
 setup_jest() {
- npm install --save-dev jest
+  npm install --save-dev jest
 }
 
 setup_rust() {
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   if [ -f "$zdot/.zshrc" ] || [ -h "$zdot/.zshrc" ]; then
-    cat >> $zdot/.zshrc << EOL
+    cat >>$zdot/.zshrc <<EOL
     
 export PATH=\$HOME/.cargo/bin:\$HOME/.cargo/env:\$PATH
 EOL
   else
-    cat >> $zdot/.bashrc << EOL
+    cat >>$zdot/.bashrc <<EOL
     
 export PATH=\$HOME/.cargo/bin:\$HOME/.cargo/env:\$PATH
 EOL
@@ -312,36 +314,42 @@ EOL
 }
 
 linux_setup() {
-    # Update apt repo
-    # sudo apt update
-    sudo apt-get update
-    for pkg in $pkgs; do
-      echo "Checking $pkg"
-      # 2>&1 will capture the error if any
-      status="$(dpkg-query -W --showformat='${db:Status-Status}' "$pkg" 2>&1)"
-      if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
-        echo "Installing $pkg"
-        case "$pkg" in
-          nvim) 
-            setup_nvim ;;
-          zsh) 
-           command_exists zsh || sudo apt-get install zsh -y ;
-           setup_ohmyzsh ;
-           setup_zshrc ;
-           setup_zsh_shell ;;
-          tmux) 
-           command_exists tmux || sudo apt-get install tmux -y ;
-           wget -O $zdot/.tmux.conf --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.tmux.conf ;;
-	  go) 
-           setup_go ;;
-	  node)
-           setup_node ;;
-	  rust)
-           setup_rust ;;
-          *) sudo apt install $pkg ;;
-        esac
-      fi
-    done
+  # Update apt repo
+  # sudo apt update
+  sudo apt-get update
+  for pkg in $pkgs; do
+    echo "Checking $pkg"
+    # 2>&1 will capture the error if any
+    status="$(dpkg-query -W --showformat='${db:Status-Status}' "$pkg" 2>&1)"
+    if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
+      echo "Installing $pkg"
+      case "$pkg" in
+      nvim)
+        setup_nvim
+        ;;
+      zsh)
+        command_exists zsh || sudo apt-get install zsh -y
+        setup_ohmyzsh
+        setup_zshrc
+        setup_zsh_shell
+        ;;
+      tmux)
+        command_exists tmux || sudo apt-get install tmux -y
+        wget -O $zdot/.tmux.conf --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.tmux.conf
+        ;;
+      go)
+        setup_go
+        ;;
+      node)
+        setup_node
+        ;;
+      rust)
+        setup_rust
+        ;;
+      *) sudo apt install $pkg ;;
+      esac
+    fi
+  done
 }
 
 mac_setup() {
@@ -354,37 +362,41 @@ main() {
   if [ -t 0 ]; then
     # Man test if the $# (number of parameters) provided is -gt (greater than) 0
     while [ $# -gt 0 ]; do
-     # Read and match the second (1) argument
-     case $1 in
-	--all) pkgs='vim nvim tmux exa zsh'; RUNZSH=no;  ;;
-        --go) pkgs='go' ;;
-	--nvim) pkgs='vim nvim' ;;
-        --node) pkgs='node' ;;
-	--vim) pkgs='vim' ;;
- 	--rust) pkgs='rust' ;;
-        --exa) pkgs='exa' ;;
-        --zsh) pkgs='zsh' ;;
-        --tmux) pkgs='tmux' ;;
-        --zshsetup) pkgs='zshstp' ;;
-     esac
-     shift
-   done
+      # Read and match the second (1) argument
+      case $1 in
+      --all)
+        pkgs='vim nvim tmux exa zsh'
+        RUNZSH=no
+        ;;
+      --go) pkgs='go' ;;
+      --nvim) pkgs='vim nvim' ;;
+      --node) pkgs='node' ;;
+      --vim) pkgs='vim' ;;
+      --rust) pkgs='rust' ;;
+      --exa) pkgs='exa' ;;
+      --zsh) pkgs='zsh' ;;
+      --tmux) pkgs='tmux' ;;
+      --zshsetup) pkgs='zshstp' ;;
+      esac
+      shift
+    done
   # If it is not a tty then run as unattended
-  else 
+  else
     RUNZSH=no
     CHSH=no
   fi
 
   case $(uname | tr '[:upper:]' '[:lower:]') in
-    linux*)
-      linux_setup ;;
-    darwin*)
-      mac_setup  ;;
-    msys*)
-      echo "It's windows"
-      ;;
-    *)
-      ;;
+  linux*)
+    linux_setup
+    ;;
+  darwin*)
+    mac_setup
+    ;;
+  msys*)
+    echo "It's windows"
+    ;;
+  *) ;;
   esac
 
   exec zsh -l
