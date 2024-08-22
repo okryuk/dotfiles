@@ -255,6 +255,15 @@ setup_zsh_shell() {
   echo
 }
 
+setup_lazygit() {
+  LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+  curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+  tar xf lazygit.tar.gz lazygit
+  sudo rm lazygit.tar.gz
+  sudo install lazygit /usr/local/bin
+  sudo rm -rf lazygit
+}
+
 setup_nvim() {
   sudo apt-get install fuse libfuse2 git python3-pip ack-grep ripgrep -y
   wget --quiet https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage --output-document nvim
