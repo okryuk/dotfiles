@@ -333,6 +333,9 @@ linux_setup() {
     if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
       echo "Installing $pkg"
       case "$pkg" in
+      lazygit)
+        setup_lazygit
+        ;;
       nvim)
         setup_nvim
         ;;
@@ -351,6 +354,7 @@ linux_setup() {
         ;;
       node)
         setup_node
+        setup_jest
         ;;
       rust)
         setup_rust
@@ -374,10 +378,11 @@ main() {
       # Read and match the second (1) argument
       case $1 in
       --all)
-        pkgs='vim nvim tmux exa zsh'
+        pkgs='vim nvim tmux exa zsh go node lazygit'
         RUNZSH=no
         ;;
       --go) pkgs='go' ;;
+      --lazygit) pkgs='lazygit';;
       --nvim) pkgs='vim nvim' ;;
       --node) pkgs='node' ;;
       --vim) pkgs='vim' ;;
