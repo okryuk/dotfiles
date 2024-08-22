@@ -259,8 +259,10 @@ setup_nvim() {
   chmod +x nvim
   sudo chown root:root nvim
   sudo mv nvim /usr/bin
+  git clone https://github.com/okryuk/dotfiles.git $zdot
   mkdir -p $zdot/.config/nvim
-  wget -O $zdot/.config/nvim/init.lua --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.config/Nvim/init.lua
+  cp -a $zdot/dotfiles/.config/nvim/. $zdot/.config/nvim
+  # wget -O $zdot/.config/nvim/init.lua --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.config/Nvim/init.lua
 }
 
 setup_go() {
