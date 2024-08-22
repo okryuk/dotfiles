@@ -327,41 +327,41 @@ linux_setup() {
   # sudo apt update
   sudo apt-get update
   for pkg in $pkgs; do
-    echo "Checking $pkg"
+    # echo "Checking $pkg"
     # 2>&1 will capture the error if any
-    status="$(dpkg-query -W --showformat='${db:Status-Status}' "$pkg" 2>&1)"
-    if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
-      echo "Installing $pkg"
-      case "$pkg" in
-      lazygit)
-        setup_lazygit
-        ;;
-      nvim)
-        setup_nvim
-        ;;
-      zsh)
-        command_exists zsh || sudo apt-get install zsh -y
-        setup_ohmyzsh
-        setup_zshrc
-        setup_zsh_shell
-        ;;
-      tmux)
-        command_exists tmux || sudo apt-get install tmux -y
-        wget -O $zdot/.tmux.conf --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.tmux.conf
-        ;;
-      go)
-        setup_go
-        ;;
-      node)
-        setup_node
-        setup_jest
-        ;;
-      rust)
-        setup_rust
-        ;;
-      *) sudo apt install $pkg ;;
-      esac
-    fi
+    # status="$(dpkg-query -W --showformat='${db:Status-Status}' "$pkg" 2>&1)"
+    # if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
+    echo "Installing $pkg"
+    case "$pkg" in
+    lazygit)
+      setup_lazygit
+      ;;
+    nvim)
+      setup_nvim
+      ;;
+    zsh)
+      command_exists zsh || sudo apt-get install zsh -y
+      setup_ohmyzsh
+      setup_zshrc
+      setup_zsh_shell
+      ;;
+    tmux)
+      command_exists tmux || sudo apt-get install tmux -y
+      wget -O $zdot/.tmux.conf --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.tmux.conf
+      ;;
+    go)
+      setup_go
+      ;;
+    node)
+      setup_node
+      setup_jest
+      ;;
+    rust)
+      setup_rust
+      ;;
+    *) sudo apt install $pkg ;;
+    esac
+    # fi
   done
 }
 
