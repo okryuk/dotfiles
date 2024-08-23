@@ -141,6 +141,18 @@ setup_ohmyzsh() {
   echo
 }
 
+setup_brew() {
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+  test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  if 
+
+  if [ -f "$zdot/.zshrc" ] || [ -h "$zdot/.zshrc" ]; then
+    echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.zshrc
+  else
+    echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
+}
+
 setup_zshrc() {
   # Keep most recent old .zshrc at .zshrc.pre-oh-my-zsh, and older ones
   # with datestamp of installation that moved them aside, so we never actually
@@ -333,6 +345,9 @@ linux_setup() {
     # if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
     echo "Installing $pkg"
     case "$pkg" in
+    brew)
+      setup_brew
+      ;;
     lazygit)
       setup_lazygit
       ;;
@@ -378,9 +393,10 @@ main() {
       # Read and match the second (1) argument
       case $1 in
       --all)
-        pkgs='vim nvim tmux exa zsh go node lazygit'
+        pkgs='vim nvim tmux exa zsh brew go node lazygit'
         RUNZSH=no
         ;;
+      --brew) pkgs='brew' ;;
       --go) pkgs='go' ;;
       --lazygit) pkgs='lazygit';;
       --nvim) pkgs='vim nvim' ;;
