@@ -185,11 +185,18 @@ setup_zshrc() {
 
   echo "Using the Oh My Zsh setup file and adding it to $zdot/.zshrc."
 
+  [ -d $zdot/.fonts ] || mkdir $zdot/.fonts
+  wget -O $zdot/.fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+  wget -O $zdot/.fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+  wget -O $zdot/.fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+  wget -O $zdot/.fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+  fc-cache -f -v $zdot/.fonts
+  
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH/custom/themes/powerlevel10k
   wget -O $zdot/.p10k.zsh --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.p10k.zsh
   wget -O $zdot/.zshrc --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.zshrc
   wget -O $ZSH/custom/aliases.zsh --backups=1 https://raw.githubusercontent.com/okryuk/dotfiles/main/.oh-my-zsh/custom/aliases.zsh
-
+  
   echo
 }
 
@@ -277,7 +284,8 @@ setup_lazygit() {
 }
 
 setup_nvim() {
-  sudo apt-get install fuse libfuse2 git python3-pip ack-grep ripgrep -y
+  # sudo apt-get install fuse libfuse2 git python3-pip ack-grep ripgrep -y
+  sudo apt-get install build-essential git python3-pip ack-grep ripgrep -y
   wget --quiet https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage --output-document nvim
   chmod +x nvim
   sudo chown root:root nvim
@@ -393,7 +401,7 @@ main() {
       # Read and match the second (1) argument
       case $1 in
       --all)
-        pkgs='vim nvim tmux exa zsh brew go node lazygit'
+        pkgs='vim nvim tmux exa zsh go node lazygit'
         RUNZSH=no
         ;;
       --brew) pkgs='brew' ;;
