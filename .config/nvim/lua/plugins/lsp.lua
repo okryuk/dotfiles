@@ -76,6 +76,8 @@ return {
 							analyses = {
 								unusedparams = true, -- Show if parameters are not used
 							},
+							staticcheck = true,
+							gofumpt = true,
 						},
 					},
 				},
