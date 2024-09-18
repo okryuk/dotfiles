@@ -298,9 +298,9 @@ setup_nvim() {
 
 setup_go() {
   sudo rm -rf /usr/local/go
-  wget https://go.dev/dl/go1.23.0.linux-amd64.tar.gz
-  tar -xvf go1.23.0.linux-amd64.tar.gz
-  rm go1.23.0.linux-amd64.tar.gz
+  wget https://go.dev/dl/go1.23.1.linux-amd64.tar.gz
+  tar -xvf go1.23.1.linux-amd64.tar.gz
+  rm go1.23.1.linux-amd64.tar.gz
   sudo mv go /usr/local
 
   if [ -f "$zdot/.zshrc" ] || [ -h "$zdot/.zshrc" ]; then
