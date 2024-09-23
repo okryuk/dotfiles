@@ -286,9 +286,10 @@ setup_lazygit() {
 setup_nvim() {
   # sudo apt-get install fuse libfuse2 git python3-pip ack-grep ripgrep -y
   sudo apt-get install build-essential git python3-pip ack-grep ripgrep -y
-  wget --quiet https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage --output-document nvim
-  chmod +x nvim
-  sudo chown root:root nvim
+  sudo apt install neovim
+  # wget --quiet https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage --output-document nvim
+  # chmod +x nvim
+  # sudo chown root:root nvim
   sudo mv nvim /usr/bin
   git clone https://github.com/okryuk/dotfiles.git $zdot/dotfiles
   mkdir -p $zdot/.config/nvim
@@ -317,8 +318,14 @@ EOL
 }
 
 setup_node() {
-  curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - &&
-    sudo apt-get install -y nodejs
+  # Install nvm first 
+  sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
+  # Install node inside nvm then
+  nvm install node
+  
+  #curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash - &&
+  #  sudo apt-get install -y nodejs
 }
 
 setup_jest() {
