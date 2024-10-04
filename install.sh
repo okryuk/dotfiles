@@ -408,7 +408,7 @@ main() {
       # Read and match the second (1) argument
       case $1 in
       --all)
-        pkgs='vim nvim tmux exa zsh go node lazygit'
+        pkgs='vim nvim tmux eza zsh go node lazygit'
         RUNZSH=no
         ;;
       --brew) pkgs='brew' ;;
@@ -418,7 +418,7 @@ main() {
       --node) pkgs='node' ;;
       --vim) pkgs='vim' ;;
       --rust) pkgs='rust' ;;
-      --exa) pkgs='exa' ;;
+      --eza) pkgs='eza' ;;
       --zsh) pkgs='zsh' ;;
       --tmux) pkgs='tmux' ;;
       --zshsetup) pkgs='zshstp' ;;
