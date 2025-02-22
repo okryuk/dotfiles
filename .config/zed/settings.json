@@ -10,14 +10,39 @@
   "telemetry": {
     "metrics": false
   },
+
+  // Vim setup
   "vim_mode": true,
+  "vim": {
+    "use_system_clipboard": "always",
+    "use_multiline_find": true
+  },
+  "relative_line_numbers": true,
+
+  // Terminal
+  "terminal": { "font_family": "MesloLGS NF" },
+
+  // UI
+  "soft_wrap": "editor_width",
   "ui_font_size": 16,
   "buffer_font_size": 16,
   "theme": {
     "mode": "system",
-    "light": "Andromeda",
-    "dark": "One Dark"
+    // "light": "One Hunter Light", // from https://zed-themes.com
+    "light": "Catppuccin Latte", // from https://zed-themes.com
+    // "light": "Catppuccin Mocha", // from https://zed-themes.com
+    // "light": "Catppuccin Macchiato", // from https://zed-themes.com
+    // "light": "Monospace dark", // from https://zed-themes.com
+    // "dark": "Monospace dark", // from https://zed-themes.com
+    // "light": "Tokyo Night Storm", // from https://zed-themes.com
+    // "light": "Skeletor", // from https://zed-themes.com
+    // "light": "One Light",
+    // "light": "Andromeda",
+    "dark": "Tokyo Night Storm" // from https://zed-themes.com
+    // "dark": "One Dark"
   },
+
+  // LSPs
   "languages": {
     "Go": {
       "formatter": {
@@ -43,6 +68,27 @@
         "staticcheck": true
       }
     }
+  },
+
+  // Assistant
+  "assistant": {
+    "default_model": {
+      "provider": "ollama",
+      "model": "llama3.1:latest"
+    },
+    "version": "2"
+  },
+  "language_models": {
+    "ollama": {
+      "api_url": "http://192.168.0.10:11434",
+      "low_speed_timeout_in_seconds": 120,
+      "available_models": [
+        {
+          "provider": "ollama",
+          "name": "llama3.1:latest",
+          "max_tokens": 32768
+        }
+      ]
+    }
   }
 }
-
